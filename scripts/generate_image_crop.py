@@ -1,16 +1,17 @@
 import utility as ut
 from PIL import Image
 
-''' generates the image with aroppping and bicubic upsampling
+''' generates the image with croppping and bicubic upsampling
 '''
 
 # # Z-axis Images
 # ### F1 160
 
-datapath_hr = '../OneDrive_1_11-10-2021/AD_P522R_F1_160/MRI_50um/mag_sos_wn.nii'
+datapath_hr = '../OneDrive/AD_P522R_F1_160/MRI_50um/mag_sos_wn.nii'
 data_hr = ut.load_data_nii(datapath_hr)
 
 main_path= '../images/50um/z_axis/f1_160/'
+
 sub_path_2='lr_f1_160_2'
 sub_path_4 ='lr_f1_160_4'
 sub_path_8 ='lr_f1_160_8'
@@ -60,7 +61,7 @@ for i in range(71):
 
 
 # ## F2 145
-datapath_hr= '../OneDrive_1_11-10-2021/AD_P522R_F2_145/MRI_50um/mag_sos_wn.nii'
+datapath_hr= '../OneDrive/AD_P522R_F2_145/MRI_50um/mag_sos_wn.nii'
 data_hr = ut.load_data_nii(datapath_hr)
 
 main_path= '../images/50um/z_axis/f2_145/'
@@ -117,7 +118,7 @@ for i in range(71):
 
 # ## Validation set
 
-datapath_hr= '../OneDrive_1_11-10-2021/AD_P522R_F4_149/MRI_50um/mag_sos_wn.nii'
+datapath_hr= '../OneDrive/AD_P522R_F4_149/MRI_50um/mag_sos_wn.nii'
 data_hr = ut.load_data_nii(datapath_hr)
 
 main_path= '../images/50um/z_axis/f4_149/'
@@ -174,7 +175,7 @@ for i in range(71):
 # ## F5 153
 
 
-datapath_hr= '../OneDrive_1_11-10-2021/AD_P522R_F5_153/MRI_50um/mag_sos_wn.nii'
+datapath_hr= '../OneDrive/AD_P522R_F5_153/MRI_50um/mag_sos_wn.nii'
 data_hr = ut.load_data_nii(datapath_hr)
 
 main_path= '../images/50um/z_axis/f5_153/'
@@ -231,7 +232,7 @@ for i in range(71):
 # ## F1 160
 
 
-datapath_hr= '../OneDrive_1_11-10-2021/AD_P522R_F1_160/MRI_50um/mag_sos_wn.nii'
+datapath_hr= '../OneDrive/AD_P522R_F1_160/MRI_50um/mag_sos_wn.nii'
 data_hr = ut.load_data_nii(datapath_hr)
 
 main_path= '../images/50um/y_axis/f1_160/'
@@ -288,7 +289,7 @@ for i in range(182):
 # ## F2 145
 
 
-datapath_hr= '../OneDrive_1_11-10-2021/AD_P522R_F2_145/MRI_50um/mag_sos_wn.nii'
+datapath_hr= '../OneDrive/AD_P522R_F2_145/MRI_50um/mag_sos_wn.nii'
 data_hr = ut.load_data_nii(datapath_hr)
 
 
@@ -343,7 +344,7 @@ for i in range(182):
 
 # ## F4 149
 
-datapath_hr= '../OneDrive_1_11-10-2021/AD_P522R_F4_149/MRI_50um/mag_sos_wn.nii'
+datapath_hr= '../OneDrive/AD_P522R_F4_149/MRI_50um/mag_sos_wn.nii'
 data_hr = ut.load_data_nii(datapath_hr)
 
 main_path= '../images/50um/y_axis/f4_149/'
@@ -396,7 +397,7 @@ for i in range(182):
 
 
 # ## F5 153
-datapath_hr= '../OneDrive_1_11-10-2021/AD_P522R_F5_153/MRI_50um/mag_sos_wn.nii'
+datapath_hr= '../OneDrive/AD_P522R_F5_153/MRI_50um/mag_sos_wn.nii'
 data_hr = ut.load_data_nii(datapath_hr)
 
 main_path= '../images/50um/y_axis/f5_153/'
@@ -452,7 +453,7 @@ for i in range(182):
 
 # ## F1 160
 
-datapath_hr= '../OneDrive_1_11-10-2021/AD_P522R_F1_160/MRI_50um/mag_sos_wn.nii'
+datapath_hr= '../OneDrive/AD_P522R_F1_160/MRI_50um/mag_sos_wn.nii'
 data_hr = ut.load_data_nii(datapath_hr)
 
 
@@ -500,7 +501,7 @@ for i in range(321):
 
 # ## F2 145
 
-datapath_hr= '../OneDrive_1_11-10-2021/AD_P522R_F2_145/MRI_50um/mag_sos_wn.nii'
+datapath_hr= '../OneDrive/AD_P522R_F2_145/MRI_50um/mag_sos_wn.nii'
 data_hr = ut.load_data_nii(datapath_hr)
 
 main_path= '../images/50um/x_axis/f2_145/'
@@ -548,7 +549,7 @@ for i in range(321):
 # ## F4 149
 
 
-datapath_hr= '../OneDrive_1_11-10-2021/AD_P522R_F4_149/MRI_50um/mag_sos_wn.nii'
+datapath_hr= '../OneDrive/AD_P522R_F4_149/MRI_50um/mag_sos_wn.nii'
 data_hr = ut.load_data_nii(datapath_hr)
 
 main_path= '../images/50um/x_axis/f4_149/'
@@ -593,7 +594,7 @@ for i in range(321):
 
 # ## F5 153
 
-datapath_hr= '../OneDrive_1_11-10-2021/AD_P522R_F5_153/MRI_50um/mag_sos_wn.nii'
+datapath_hr= '../OneDrive/AD_P522R_F5_153/MRI_50um/mag_sos_wn.nii'
 data_hr = ut.load_data_nii(datapath_hr)
 
 main_path= '../images/50um/x_axis/f5_153/'

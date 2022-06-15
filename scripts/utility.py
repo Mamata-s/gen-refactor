@@ -7,6 +7,31 @@ import warnings
 warnings.filterwarnings("ignore")
 from PIL import Image
 import matplotlib.pyplot as plt
+import os
+
+def create_dictionary(image_dir,label_dir):
+    lst = []
+    for f in os.listdir(image_dir):
+        if not f.startswith('.'):
+            lst.append(f)
+        else:
+            pass
+    lst.sort()
+    label_lst=[]
+    for f in os.listdir(label_dir):
+        if not f.startswith('.'):
+            label_lst.append(f)
+        else:
+            pass
+    label_lst.sort()
+   
+    dir_dictionary={}
+    for i in range(len(lst)):
+        dir_dictionary[lst[i]]=label_lst[i]
+        
+    return dir_dictionary
+
+
 
 def load_data_nii(fname):
     import nibabel as nib
@@ -16,7 +41,6 @@ def load_data_nii(fname):
     data = img.get_fdata()
     data_norm = data
     return data_norm 
-    return 1
 
 def calculate_l1_distance(img,img2):
     dist = np.sum(abs(img[:] - img2[:]));
@@ -39,7 +63,7 @@ def calculate_PSNR(img,img2):
 
 def fourier_transform(image,shift=False):
     FT = np.fft.fft2(image)
-    
+ 
     if shift:
         f_shift = np.fft.fftshift(FT)
         return f_shift

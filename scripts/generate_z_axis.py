@@ -4,21 +4,33 @@ import os
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--hr-image-dir', type=str)
+    parser.add_argument('--dataset_size',type=str,required=False,default='MRI_25um')
     args = parser.parse_args()
+
+    factor = [2,4,6,8]
+
+    dataset_size = args.dataset_size
+    
+    if dataset_size =='MRI_25um':
+        dataset_name = 'resolution_dataset25'
+        start = 20
+        end = 260
+    else:
+       dataset_name = 'resolution_dataset50' 
+       start = 42
+       end = 71
 
     # # Z-axis Images
     # ### F1 160
-
-    datapath_hr = '../OneDrive_1_4-8-2022/AD_P522R_F1_160/MRI_25um/mag_sos_wn.nii'
+    datapath_hr = '../OneDrive/AD_P522R_F1_160/{}/mag_sos_wn.nii'.format(dataset_size)
     data_hr = ut.load_data_nii(datapath_hr)
 
-    main_path= '../dataset/z_axis/'
-    label_train_dir = '../dataset/z_axis/label/train/'
-    label_val_dir ='../dataset/z_axis/label/val/'
+
+    main_path= '../{}/z_axis/'.format(dataset_name)
+    label_train_dir = '../{}/z_axis/label/train/'.format(dataset_name)
+    label_val_dir ='../{}/z_axis/label/val/'.format(dataset_name)
     hr_path = 'hr_f1_160'
 
-    factor = [2,4,6,8]
 
     if not os.path.exists(label_train_dir):
        os.makedirs(label_train_dir)
@@ -26,7 +38,7 @@ if __name__ == '__main__':
        os.makedirs(label_val_dir)
     for fac in factor:
         train_path = main_path+ "factor_{}/train/".format(fac)
-        val_path = main_path+ "factor_{}/val/".format(fac)
+        val_path = main_path + "factor_{}/val/".format(fac)
         if not os.path.exists(train_path):
             os.makedirs(train_path)
         if not os.path.exists(val_path):
@@ -36,8 +48,8 @@ if __name__ == '__main__':
 
     for fac in factor:
         x,y,z = data_hr.shape
-        k=42
-        for i in range(71):
+        k=start
+        for i in range(end):
             img = ut.crop_pad_kspace(data_hr[:,:,k],pad=True,factor=fac)
             img = ut.normalize_image(img)
             name = 'lr_f1_160_{}_z_{}'.format(fac,k)
@@ -47,8 +59,8 @@ if __name__ == '__main__':
     
     # saving lr images
     x,y,z = data_hr.shape
-    k=42
-    for i in range(71):
+    k=start
+    for i in range(end):
         name= hr_path+ '_z_'+str(k)
         img = ut.normalize_image(data_hr[:,:,k])
         k+=1
@@ -57,18 +69,17 @@ if __name__ == '__main__':
 # ******************************************************************************************************************************
 
     # ## F2 145
-    datapath_hr= '../OneDrive_1_4-8-2022/AD_P522R_F2_145/MRI_25um/mag_sos_wn.nii'
+    datapath_hr= '../OneDrive/AD_P522R_F2_145/{}/mag_sos_wn.nii'.format(dataset_size)
     data_hr = ut.load_data_nii(datapath_hr)
 
-    main_path= '../dataset/z_axis/'
+    main_path= '../{}/z_axis/'.format(dataset_name)
     hr_path ='hr_f2_145'
 
-    factor = [2,4,6,8]
 
     for fac in factor:
         x,y,z = data_hr.shape
-        k=42
-        for i in range(71):
+        k=start
+        for i in range(end):
             img = ut.crop_pad_kspace(data_hr[:,:,k],pad=True,factor=fac)
             img = ut.normalize_image(img)
             name = 'lr_f2_145_{}_z_{}'.format(fac,k)
@@ -78,8 +89,8 @@ if __name__ == '__main__':
      
     # saving lr images
     x,y,z = data_hr.shape
-    k=42
-    for i in range(71):
+    k=start
+    for i in range(end):
         name= hr_path+ '_z_'+str(k)
         img = ut.normalize_image(data_hr[:,:,k])
         k+=1
@@ -91,18 +102,16 @@ if __name__ == '__main__':
 
 # ## Validation set
 
-    datapath_hr= '../OneDrive_1_4-8-2022/AD_P522R_F4_149/MRI_25um/mag_sos_wn.nii'
+    datapath_hr= '../OneDrive/AD_P522R_F4_149/{}/mag_sos_wn.nii'.format(dataset_size)
     data_hr = ut.load_data_nii(datapath_hr)
 
-    main_path= '../dataset/z_axis/'
+    main_path= '../{}/z_axis/'.format(dataset_name)
     hr_path = 'hr_f4_149'
-
-    factor = [2,4,6,8]
 
     for fac in factor:
         x,y,z = data_hr.shape
-        k=42
-        for i in range(71):
+        k=start
+        for i in range(end):
             img = ut.crop_pad_kspace(data_hr[:,:,k],pad=True,factor=fac)
             img = ut.normalize_image(img)
             name = 'lr_f4_149_{}_z_{}'.format(fac,k)
@@ -113,8 +122,8 @@ if __name__ == '__main__':
     
     # saving lr images
     x,y,z = data_hr.shape
-    k=42
-    for i in range(71):
+    k=start
+    for i in range(end):
         name= hr_path+ '_z_'+str(k)
         img = ut.normalize_image(data_hr[:,:,k])
         k+=1
@@ -125,21 +134,17 @@ if __name__ == '__main__':
 # ***********************************************************************************************************************
 # ## F5 153
 
-    datapath_hr= '../OneDrive_1_4-8-2022/AD_P522R_F5_153/MRI_25um/mag_sos_wn.nii'
+    datapath_hr= '../OneDrive/AD_P522R_F5_153/{}/mag_sos_wn.nii'.format(dataset_size)
     data_hr = ut.load_data_nii(datapath_hr)
 
-    main_path= '../dataset/z_axis/'
-    sub_path_2 ='lr_f5_153_2'
-    sub_path_4='lr_f5_153_4'
-    sub_path_8 ='lr_f5_153_8'
+    main_path= '../{}/z_axis/'.format(dataset_name)
     hr_path ='hr_f5_153'
 
-    factor = [2,4,6,8]
 
     for fac in factor:
         x,y,z = data_hr.shape
-        k=42
-        for i in range(71):
+        k=start
+        for i in range(end):
             img = ut.crop_pad_kspace(data_hr[:,:,k],pad=True,factor=fac)
             img = ut.normalize_image(img)
             name = 'lr_f5_153_{}_z_{}'.format(fac,k)
@@ -149,8 +154,8 @@ if __name__ == '__main__':
    
     # saving lr images
     x,y,z = data_hr.shape
-    k=42
-    for i in range(71):
+    k=start
+    for i in range(end):
         name= hr_path+ '_z_'+str(k)
         img = ut.normalize_image(data_hr[:,:,k])
         k+=1
