@@ -23,7 +23,7 @@ if __name__ == '__main__':
         start_x = 0
         num_x= 618
         start_y=60
-        nu,_y =410
+        num_y =410
 
     else:
        dataset_name = 'resolution_dataset50' 
