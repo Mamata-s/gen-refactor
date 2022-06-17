@@ -32,10 +32,10 @@ if __name__ == '__main__':
        end_z= 112
 
        start_x = 0
-       num_x= 321
+       end_x= 321
 
        start_y=42
-       num_y =223
+       end_y =223
 
 
     num_z = end_z-start_z+1
