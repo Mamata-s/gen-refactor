@@ -14,11 +14,11 @@ if __name__ == '__main__':
     if dataset_size =='MRI_25um':
         dataset_name = 'resolution_dataset25'
         start = 20
-        end = 260
+        num_img = 240
     else:
        dataset_name = 'resolution_dataset50' 
        start = 42
-       end = 71
+       num_img = 29
 
     # # Z-axis Images
     # ### F1 160
@@ -49,7 +49,7 @@ if __name__ == '__main__':
     for fac in factor:
         x,y,z = data_hr.shape
         k=start
-        for i in range(end):
+        for i in range(num_img):
             img = ut.crop_pad_kspace(data_hr[:,:,k],pad=True,factor=fac)
             img = ut.normalize_image(img)
             name = 'lr_f1_160_{}_z_{}'.format(fac,k)
@@ -60,7 +60,7 @@ if __name__ == '__main__':
     # saving lr images
     x,y,z = data_hr.shape
     k=start
-    for i in range(end):
+    for i in range(num_img):
         name= hr_path+ '_z_'+str(k)
         img = ut.normalize_image(data_hr[:,:,k])
         k+=1
@@ -79,7 +79,7 @@ if __name__ == '__main__':
     for fac in factor:
         x,y,z = data_hr.shape
         k=start
-        for i in range(end):
+        for i in range(num_img):
             img = ut.crop_pad_kspace(data_hr[:,:,k],pad=True,factor=fac)
             img = ut.normalize_image(img)
             name = 'lr_f2_145_{}_z_{}'.format(fac,k)
@@ -90,7 +90,7 @@ if __name__ == '__main__':
     # saving lr images
     x,y,z = data_hr.shape
     k=start
-    for i in range(end):
+    for i in range(num_img):
         name= hr_path+ '_z_'+str(k)
         img = ut.normalize_image(data_hr[:,:,k])
         k+=1
@@ -111,7 +111,7 @@ if __name__ == '__main__':
     for fac in factor:
         x,y,z = data_hr.shape
         k=start
-        for i in range(end):
+        for i in range(num_img):
             img = ut.crop_pad_kspace(data_hr[:,:,k],pad=True,factor=fac)
             img = ut.normalize_image(img)
             name = 'lr_f4_149_{}_z_{}'.format(fac,k)
@@ -123,7 +123,7 @@ if __name__ == '__main__':
     # saving lr images
     x,y,z = data_hr.shape
     k=start
-    for i in range(end):
+    for i in range(num_img):
         name= hr_path+ '_z_'+str(k)
         img = ut.normalize_image(data_hr[:,:,k])
         k+=1
@@ -144,7 +144,7 @@ if __name__ == '__main__':
     for fac in factor:
         x,y,z = data_hr.shape
         k=start
-        for i in range(end):
+        for i in range(num_img):
             img = ut.crop_pad_kspace(data_hr[:,:,k],pad=True,factor=fac)
             img = ut.normalize_image(img)
             name = 'lr_f5_153_{}_z_{}'.format(fac,k)
@@ -155,7 +155,7 @@ if __name__ == '__main__':
     # saving lr images
     x,y,z = data_hr.shape
     k=start
-    for i in range(end):
+    for i in range(num_img):
         name= hr_path+ '_z_'+str(k)
         img = ut.normalize_image(data_hr[:,:,k])
         k+=1

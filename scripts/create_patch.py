@@ -55,7 +55,6 @@ def save_img_using_pil_lib(img,name,fol_dir):
 
 
 if __name__ == '__main__':
-    print('called')
     parser = argparse.ArgumentParser()
     parser.add_argument('--image-dir', type=str, required=True)
     parser.add_argument('--label-dir', type=str, required=True)

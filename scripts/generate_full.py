@@ -19,20 +19,20 @@ if __name__ == '__main__':
     if dataset_size =='MRI_25um':
         dataset_name = 'resolution_dataset25'
         start_z = 20
-        end_z = 260
+        num_z = 240
         start_x = 0
-        end_x= 620
+        num_x= 618
         start_y=60
-        end_y =470
+        nu,_y =410
 
     else:
        dataset_name = 'resolution_dataset50' 
        start_z = 42
-       end_z = 71
+       num_z = 29
        start_x = 42
-       end_x= 321
+       num_x= 279
        start_y=42
-       end_y =182
+       num_y =140
 
 
     datapath_hr = '../OneDrive/AD_P522R_F1_160/{}/mag_sos_wn.nii'.format(dataset_size)
@@ -67,7 +67,7 @@ if __name__ == '__main__':
     for fac in factor:
         x,y,z = data_hr.shape
         k=start_z
-        for i in range(end_z):
+        for i in range(num_z):
             img = ut.crop_pad_kspace(data_hr[:,:,k],pad=True,factor=fac)
             img = ut.normalize_image(img)
             name= 'lr_f1_160_{}_z_{}'.format(fac,k)
@@ -79,7 +79,7 @@ if __name__ == '__main__':
     # saving label images
     x,y,z = data_hr.shape
     k=start_z
-    for i in range(end_z):
+    for i in range(num_z):
         name= hr_path+ '_z_'+str(k)
         img = ut.normalize_image(data_hr[:,:,k])
         ut.save_img_using_pil_lib(img,name,label_train_dir)
@@ -98,7 +98,7 @@ if __name__ == '__main__':
     for fac in factor:
         x,y,z = data_hr.shape
         k=start_z
-        for i in range(end_z):
+        for i in range(num_z):
             img = ut.crop_pad_kspace(data_hr[:,:,k],pad=True,factor=fac)
             img = ut.normalize_image(img)
             name= 'lr_f2_145_{}_z_{}'.format(fac,k)
@@ -109,7 +109,7 @@ if __name__ == '__main__':
     # saving label images
     x,y,z = data_hr.shape
     k=start_z
-    for i in range(end_z):
+    for i in range(num_z):
         name= hr_path+ '_z_'+str(k)
         img = ut.normalize_image(data_hr[:,:,k])
         ut.save_img_using_pil_lib(img,name,label_train_dir)
@@ -129,7 +129,7 @@ if __name__ == '__main__':
     for fac in factor:
         x,y,z = data_hr.shape
         k=start_z
-        for i in range(end_z):
+        for i in range(num_z):
             img = ut.crop_pad_kspace(data_hr[:,:,k],pad=True,factor=fac)
             img = ut.normalize_image(img)
             name= 'lr_f4_149_{}_z_{}'.format(fac,k)
@@ -141,7 +141,7 @@ if __name__ == '__main__':
     # saving label images
     x,y,z = data_hr.shape
     k=start_z
-    for i in range(end_z):
+    for i in range(num_z):
         name= hr_path+ '_z_'+str(k)
         img = ut.normalize_image(data_hr[:,:,k])
         ut.save_img_using_pil_lib(img,name,label_val_dir)
@@ -161,7 +161,7 @@ if __name__ == '__main__':
     for fac in factor:
         x,y,z = data_hr.shape
         k=start_z
-        for i in range(end_z):
+        for i in range(num_z):
             img = ut.crop_pad_kspace(data_hr[:,:,k],pad=True,factor=fac)
             img = ut.normalize_image(img)
             name= 'lr_f5_153_{}_z_{}'.format(fac,k)
@@ -172,7 +172,7 @@ if __name__ == '__main__':
     # saving lr images
     x,y,z = data_hr.shape
     k=start_z
-    for i in range(end_z):
+    for i in range(num_z):
         name= hr_path+ '_z_'+str(k)
         img = ut.normalize_image(data_hr[:,:,k])
         ut.save_img_using_pil_lib(img,name,label_train_dir)
@@ -194,7 +194,7 @@ if __name__ == '__main__':
     for fac in factor:
         x,y,z = data_hr.shape
         k=start_y
-        for i in range(end_y):
+        for i in range(num_y):
             img = ut.crop_pad_kspace(data_hr[:,k,:],pad=True,factor=fac)
             img = ut.normalize_image(img)
             name= 'lr_f1_160_{}_y_{}'.format(fac,k)
@@ -205,7 +205,7 @@ if __name__ == '__main__':
     # saving label images
     x,y,z = data_hr.shape
     k=start_y
-    for i in range(end_y):
+    for i in range(num_y):
         name= hr_path+ '_y_'+str(k)
         img = ut.normalize_image(data_hr[:,k,:])
         ut.save_img_using_pil_lib(img,name,label_train_dir)
@@ -225,7 +225,7 @@ if __name__ == '__main__':
     for fac in factor:
         x,y,z = data_hr.shape
         k=start_y
-        for i in range(end_y):
+        for i in range(num_y):
             img = ut.crop_pad_kspace(data_hr[:,k,:],pad=True,factor=fac)
             img = ut.normalize_image(img)
             name= 'lr_f2_145_{}_y_{}'.format(fac,k)
@@ -237,7 +237,7 @@ if __name__ == '__main__':
     # saving lr images
     x,y,z = data_hr.shape
     k=start_y
-    for i in range(end_y):
+    for i in range(num_y):
         name= hr_path+ '_y_'+str(k)
         img = ut.normalize_image(data_hr[:,k,:])
         ut.save_img_using_pil_lib(img,name,label_val_dir)
@@ -256,7 +256,7 @@ if __name__ == '__main__':
     for fac in factor:
         x,y,z = data_hr.shape
         k=start_y
-        for i in range(end_y):
+        for i in range(num_y):
             img = ut.crop_pad_kspace(data_hr[:,k,:],pad=True,factor=fac)
             img = ut.normalize_image(img)
             name= 'lr_f4_149_{}_y_{}'.format(fac,k)
@@ -267,7 +267,7 @@ if __name__ == '__main__':
     # saving lr images
     x,y,z = data_hr.shape
     k=start_y
-    for i in range(end_y):
+    for i in range(num_y):
         name= hr_path+ '_y_'+str(k)
         img = ut.normalize_image(data_hr[:,k,:])
         ut.save_img_using_pil_lib(img,name,label_train_dir)
@@ -288,7 +288,7 @@ if __name__ == '__main__':
     for fac in factor:
         x,y,z = data_hr.shape
         k=start_y
-        for i in range(end_y):
+        for i in range(num_y):
             img = ut.crop_pad_kspace(data_hr[:,k,:],pad=True,factor=fac)
             img = ut.normalize_image(img)
             name= 'lr_f5_153_{}_y_{}'.format(fac,k)
@@ -299,7 +299,7 @@ if __name__ == '__main__':
     # saving lr images
     x,y,z = data_hr.shape
     k=start_y
-    for i in range(end_y):
+    for i in range(num_y):
         name= hr_path+ '_y_'+str(k)
         img = ut.normalize_image(data_hr[:,k,:])
         ut.save_img_using_pil_lib(img,name,label_train_dir)
@@ -321,7 +321,7 @@ if __name__ == '__main__':
     for fac in factor:
         x,y,z = data_hr.shape
         k=start_x
-        for i in range(end_x):
+        for i in range(num_x):
             img = ut.crop_pad_kspace(data_hr[k,:,:],pad=True,factor=fac)
             img = ut.normalize_image(img)
             name= 'lr_f1_160_{}_x_{}'.format(fac,k)
@@ -332,7 +332,7 @@ if __name__ == '__main__':
     # saving lr images
     x,y,z = data_hr.shape
     k=start_x
-    for i in range(end_x):
+    for i in range(num_x):
         name= hr_path+ '_x_'+str(k)
         img = ut.normalize_image(data_hr[k,:,:])
         ut.save_img_using_pil_lib(img,name,label_val_dir)
@@ -352,7 +352,7 @@ if __name__ == '__main__':
     for fac in factor:
         x,y,z = data_hr.shape
         k=start_x
-        for i in range(end_x):
+        for i in range(num_x):
             img = ut.crop_pad_kspace(data_hr[k,:,:],pad=True,factor=fac)
             img = ut.normalize_image(img)
             name= 'lr_f2_145_{}_x_{}'.format(fac,k)
@@ -363,7 +363,7 @@ if __name__ == '__main__':
     # saving label images
     x,y,z = data_hr.shape
     k=start_x
-    for i in range(end_x):
+    for i in range(num_x):
         name= hr_path+ '_x_'+str(k)
         img = ut.normalize_image(data_hr[k,:,:])
         ut.save_img_using_pil_lib(img,name,label_train_dir)
@@ -381,7 +381,7 @@ if __name__ == '__main__':
     for fac in factor:
         x,y,z = data_hr.shape
         k=start_x
-        for i in range(end_x):
+        for i in range(num_x):
             img = ut.crop_pad_kspace(data_hr[k,:,:],pad=True,factor=fac)
             img = ut.normalize_image(img)
             name= 'lr_f4_149_{}_x_{}'.format(fac,k)
@@ -393,7 +393,7 @@ if __name__ == '__main__':
     # saving lr images
     x,y,z = data_hr.shape
     k=start_x
-    for i in range(end_x):
+    for i in range(num_x):
         name= hr_path+ '_x_'+str(k)
         img = ut.normalize_image(data_hr[k,:,:])
         ut.save_img_using_pil_lib(img,name,label_train_dir)
@@ -411,7 +411,7 @@ if __name__ == '__main__':
     for fac in factor:
         x,y,z = data_hr.shape
         k=start_x
-        for i in range(end_x):
+        for i in range(num_x):
             img = ut.crop_pad_kspace(data_hr[k,:,:],pad=True,factor=fac)
             img = ut.normalize_image(img)
             name= 'lr_f5_153_{}_x_{}'.format(fac,k)
@@ -423,7 +423,7 @@ if __name__ == '__main__':
     # saving lr images
     x,y,z = data_hr.shape
     k=start_x
-    for i in range(end_x):
+    for i in range(num_x):
         name= hr_path+ '_x_'+str(k)
         img = ut.normalize_image(data_hr[k,:,:])
         ut.save_img_using_pil_lib(img,name,label_train_dir)
