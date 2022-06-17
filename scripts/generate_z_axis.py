@@ -14,11 +14,13 @@ if __name__ == '__main__':
     if dataset_size =='MRI_25um':
         dataset_name = 'resolution_dataset25'
         start = 20
-        num_img = 240
+        end= 260
+        num_img = end-start
     else:
        dataset_name = 'resolution_dataset50' 
        start = 42
-       num_img = 29
+       end = 112
+       num_img = end-start
 
     # # Z-axis Images
     # ### F1 160

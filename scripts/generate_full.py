@@ -19,21 +19,28 @@ if __name__ == '__main__':
     if dataset_size =='MRI_25um':
         dataset_name = 'resolution_dataset25'
         start_z = 20
-        num_z = 240
-        start_x = 0
-        num_x= 618
-        start_y=60
-        num_y =410
+        end_z = 260
 
+        start_x = 0
+        end_x = 620
+
+        start_y=60
+        end_y = 470
     else:
        dataset_name = 'resolution_dataset50' 
        start_z = 42
-       num_z = 29
-       start_x = 42
-       num_x= 279
-       start_y=42
-       num_y =140
+       end_z= 112
 
+       start_x = 0
+       num_x= 321
+
+       start_y=42
+       num_y =223
+
+
+    num_z = end_z-start_z+1
+    num_x= end_x-start_x+1
+    num_y = end_y-start_y+1
 
     datapath_hr = '../OneDrive/AD_P522R_F1_160/{}/mag_sos_wn.nii'.format(dataset_size)
     data_hr = ut.load_data_nii(datapath_hr)
