@@ -8,6 +8,7 @@ warnings.filterwarnings("ignore")
 from PIL import Image
 import matplotlib.pyplot as plt
 import os
+import cv2
 
 def create_dictionary(image_dir,label_dir):
     lst = []
@@ -138,6 +139,7 @@ def crop_pad_kspace(data,pad=False,factor=2):  #function for cropping and/or pad
     return np.abs(img_reco_cropped )
 
 
+
 def normalize_image(image):
     max_img = image.max()
     min_img = image.min()
@@ -158,3 +160,73 @@ def get_gauss_filter(image,R=30,high=False):
         return (1-low_filter)
     else:
         return low_filter
+
+
+# ***********************************************************************************************************************************************************
+
+def get_gaussian_filter(data,radius=20,low=True):
+    #defining a low pass filter
+
+    X = [i for i in range(data.shape[1])]
+    Y = [i for i in range(data.shape[0])]
+
+    Cy, Cx = data.shape
+    # R= 30 and threshold= 0.001 downsampling_factor=2
+    # R= 20 and threshold= 0.001 downsampling_factor=5
+    # R= 17 and threshold= 0.001 downsampling_factor=7
+    # R= 16 and threshold= 0.001 downsampling_factor=8
+    val = 0.5  # if small then hr is same as image
+
+    X,Y = np.meshgrid(X, Y)
+    low_filter = np.exp(-((X-(Cx*val))**2+(Y-(Cy*val))**2)/(2*radius)**2)
+    
+    if low:
+        return low_filter
+    else:
+        return 1-low_filter
+
+    
+def apply_filter(image_arr,filter_apply):
+    F = np.fft.fft2(image_arr)  #fourier transform of image
+    fshift = np.fft.fftshift(F)  #shifting 
+
+    FFL = filter_apply* fshift  #multiplying with gaussian filter
+    img_recon = np.abs(np.fft.ifft2(np.fft.ifftshift(FFL))) #inverse shift and inverse fourier transform
+    
+    return img_recon
+    
+    
+def downsample_gaussian(image_arr,factor=2):
+    if factor==2:
+        radius = 25
+    elif factor==4:
+        radius=15
+    elif factor==6:
+        radius=11
+    elif factor==8:
+        radius =9
+    else:
+        print(f'downsample factor{factor} not implemented.Pass radius arg value')
+    low_filter = get_gaussian_filter(image_arr,radius=radius)
+    image_downsampled = apply_filter(image_arr,low_filter)
+    return image_downsampled
+
+# *************************************************************************************************************************************************
+
+
+def downsample_bicubic(image_arr, factor=2):
+    h, w = image_arr.shape
+    new_height = int(h / factor)
+    new_width = int(w / factor)
+
+    # resize the image - down
+    image_arr = cv2.resize(image_arr, (new_width, new_height), interpolation = cv2.INTER_LINEAR)
+
+    # resize the image - up
+    image_arr = cv2.resize(image_arr, (w, h), interpolation = cv2.INTER_LINEAR)
+
+    return image_arr
+
+
+def save_image_cv(img,name,fol_dir):
+    return (cv2.imwrite(fol_dir+name+'.png', img))
