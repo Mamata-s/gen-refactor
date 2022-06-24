@@ -2,25 +2,36 @@
 # write a shell command to create a directory and generate the patches
 
 import numpy as np
-from PIL import Image
 import torch
 import argparse
+import os
 
-import  cv2, os
 
 import nibabel as nib
+
 import warnings
 warnings.filterwarnings("ignore")
 
 
-def create_index(db_size, cube_size, xmax, ymax, zmax):
+def create_index(db_size, cube_size, xmax, ymax, zmax,xmin=0,ymin=0,zmin=0):
     index_list = []
-    x_index = torch.randint(0,xmax-cube_size, (db_size,1))
-    y_index = torch.randint(0,ymax-cube_size, (db_size,1))
-    z_index = torch.randint(0,zmax-cube_size, (db_size,1))
+    x_index = torch.randint(xmin,xmax-cube_size, (db_size,1))
+    y_index = torch.randint(ymin,ymax-cube_size, (db_size,1))
+    z_index = torch.randint(zmin,zmax-cube_size, (db_size,1))
     for (x,y,z) in zip (x_index, y_index, z_index):
         index_list.append((x.item(),y.item(),z.item()))
     return index_list
+
+def create_index_stride(stride, patch_size, xmax, ymax,zmax,xmin=0,ymin=0,zmin=0):
+    index_list = []
+    index=0
+    if xmax >= patch_size and ymax >= patch_size and zmax >= patch_size:
+        for pos_x in range(xmin, xmax - patch_size + 1, stride):
+            for pos_y in range(ymin, ymax - patch_size + 1, stride):
+                for pos_z in range(zmin, zmax - patch_size + 1, stride):
+                    index_list.append((pos_x,pos_y,pos_z))
+                    index += 1
+    return index_list,index
 
 def load_data_nii(fname):
     img = nib.load(fname)
@@ -71,7 +82,6 @@ def save_patch_cube(data,name,fol_dir):
     np.save(fol_dir+name+'.npy',data)
 
 
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--data-dir', type=str, required=True)  #directory of nii file
@@ -80,13 +90,22 @@ if __name__ == '__main__':
     # parser.add_argument('--label-dir', type=str, required=True)
     parser.add_argument('--patch-size', type=int, default=64)
     parser.add_argument('--num-patch', type=int, default=10)
+    parser.add_argument('--stride', type=int, default=10)
     parser.add_argument('--output-image-dir', type=str, required=True)
     parser.add_argument('--output-label-dir', type=str, required=True)
     args = parser.parse_args()
 
+    if not os.path.exists(args.output_image_dir):
+        os.makedirs(args.output_image_dir)
+    if not os.path.exists(args.output_label_dir):
+        os.makedirs(args.output_label_dir)
     label = load_data_nii(args.data_dir)
     xmax,ymax,zmax = label.shape
-    indexes = create_index(args.num_patch, args.patch_size, xmax, ymax, zmax)
+    xmin,ymin,zmin = 0,0,0
+    # indexes = create_index(args.num_patch, args.patch_size, xmax, ymax, zmax,xmin,ymin,zmin)
+    indexes,num_patch = create_index_stride(args.stride, args.patch_size, xmax, ymax, zmax,xmin,ymin,zmin)
+    print(num_patch)
+    # quit();
     images = preprocess_data(label,factor=args.factor,pad=True)
-    
+
     create_patch (images,label,args.patch_size,args.output_image_dir,args.output_label_dir,indexes,args.name)

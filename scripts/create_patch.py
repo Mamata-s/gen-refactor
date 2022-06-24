@@ -15,7 +15,19 @@ def create_index(num_patch, patch_size, xmax, ymax):
     return index_list
 
 
-def create_patch(image_dir, label_dir,dir_dict,patch_size,num_patch,output_image_dir,output_label_dir):
+
+def create_index_stride(stride, patch_size, xmax, ymax):
+    index_list = []
+    index=0
+    if xmax >= patch_size and ymax >= patch_size:
+        for pos_x in range(0, xmax - patch_size + 1, stride):
+            for pos_y in range(0, ymax - patch_size + 1, stride):
+                index_list.append((pos_x,pos_y))
+                index += 1
+    return index_list
+
+
+def create_patch(image_dir, label_dir,dir_dict,patch_size,stride,output_image_dir,output_label_dir):
     images = os.listdir(image_dir)
 
     for index in range(len(images)):
@@ -24,7 +36,8 @@ def create_patch(image_dir, label_dir,dir_dict,patch_size,num_patch,output_image
         label_path = os.path.join(label_dir, dir_dict[dict_key])
         image = np.array(Image.open(img_path).convert('L'))  #to convert to grayscale
         xmax,ymax = image.shape
-        indexes = create_index(num_patch=num_patch,patch_size=patch_size,xmax=xmax,ymax=ymax)
+        # indexes = create_index(num_patch=num_patch,patch_size=patch_size,xmax=xmax,ymax=ymax)
+        indexes = create_index_stride(stride=stride,patch_size=patch_size,xmax=xmax,ymax=ymax)
         # image = torch.from_numpy(image)
         label = np.array(Image.open(label_path).convert('L'))
         # label = torch.from_numpy(label)
@@ -59,9 +72,11 @@ if __name__ == '__main__':
     parser.add_argument('--image-dir', type=str, required=True)
     parser.add_argument('--label-dir', type=str, required=True)
     parser.add_argument('--patch-size', type=int, default=64)
-    parser.add_argument('--num-patch', type=int, default=10)
+    parser.add_argument('--stride',type=int, default=10)
+    # parser.add_argument('--num-patch', type=int, default=10)
     parser.add_argument('--output-image-dir', type=str, required=True)
     parser.add_argument('--output-label-dir', type=str, required=True)
+
     args = parser.parse_args()
 
     if not os.path.exists(args.output_image_dir):
@@ -69,4 +84,6 @@ if __name__ == '__main__':
     if not os.path.exists(args.output_label_dir):
         os.makedirs(args.output_label_dir)
     dir_dict = ut.create_dictionary(args.image_dir,args.label_dir)
-    create_patch (args.image_dir,args.label_dir,dir_dict,args.patch_size,args.num_patch,args.output_image_dir,args.output_label_dir)
+    # create_patch (args.image_dir,args.label_dir,dir_dict,args.patch_size,args.num_patch,args.output_image_dir,args.output_label_dir)
+
+    create_patch (args.image_dir,args.label_dir,dir_dict,args.patch_size,args.stride,args.output_image_dir,args.output_label_dir)

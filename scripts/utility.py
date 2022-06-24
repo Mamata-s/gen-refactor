@@ -230,3 +230,7 @@ def downsample_bicubic(image_arr, factor=2):
 
 def save_image_cv(img,name,fol_dir):
     return (cv2.imwrite(fol_dir+name+'.png', img))
+
+
+
+    
