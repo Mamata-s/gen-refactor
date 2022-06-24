@@ -1,5 +1,10 @@
 dataset/
 resolution_dataset50/
 resolution_dataset25/
+gaussian_dataset50/
+gaussian_dataset25/
+bicubic_dataset50/
+bicubic_dataset25/
+3d_dataset50/
 .DS_Store
 OneDrive/
