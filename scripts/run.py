@@ -10,12 +10,14 @@ import os
 # os.system("python generate_full.py --dataset_size='MRI_50um'")
 
 
-# # Generate train patch data from z-axis 50um images for factor 2
+
+# Generate train patch data from z-axis 25um images for factor 2 and 4
 # factor=[2,4]
+# dataset_name = 'resolution_dataset25'
 # for fac in factor:
-#     os.system(f"python create_patch.py --image-dir='../resolution_dataset50/z_axis/factor_{fac}/train'  --label-dir='../resolution_dataset50/z_axis/label/train' --patch-size=96 --stride=75 --output-image-dir='../resolution_dataset50/patch/patch-96/factor_{fac}/train/' --output-label-dir='../resolution_dataset50/patch/patch-96/label/train/'")
-#     # # Generate val patch data from z-axis 50um images for factor 2
-#     os.system(f"python create_patch.py --image-dir='../resolution_dataset50/z_axis/factor_{fac}/val'  --label-dir='../resolution_dataset50/z_axis/label/val' --patch-size=96 --stride=75 --output-image-dir='../resolution_dataset50/patch/patch-96/factor_{fac}/val/' --output-label-dir='../resolution_dataset50/patch/patch-96/label/val/'")
+#     os.system(f"python create_patch.py --image-dir='../{dataset_name}/z_axis/factor_{fac}/train'  --label-dir='../{dataset_name}/z_axis/label/train' --patch-size=96 --stride=75 --output-image-dir='../{dataset_name}/patch/patch-96/factor_{fac}/train/' --output-label-dir='../{dataset_name}/patch/patch-96/label/train/'")
+#     # for patch use val and test set from full z-axis images
+
 
 # ***************************************************************************************************************************************************
 # GENERATE GAUSSIAN DATASET
