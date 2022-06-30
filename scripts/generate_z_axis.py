@@ -21,15 +21,16 @@ if __name__ == '__main__':
         test_list = [256, 129, 130, 133, 135, 136, 141, 147, 20, 150, 151, 152, 153, 154, 157, 29, 32, 33, 162, 164, 37, 165, 167, 168, 41, 42,
         175, 176, 181, 53, 182, 55, 186, 61, 191, 192, 66, 70, 71, 200, 76, 205, 78, 207, 80, 212, 214, 88, 90, 219, 95, 224, 96, 223, 227, 228, 101, 102, 103,
         231, 108, 109, 238, 112, 240, 115, 116, 247, 248, 122, 251, 124, 253]
+        original_list = [x for x in range(20,260)]
     else:
        dataset_name = 'resolution_dataset50' 
        start = 42
        end = 112
        num_img = end-start
-       print('create a test_index_list for 50 micron dataset')
 
-
-    original_list = [x for x in range(20,260)]
+       test_list =[46, 48, 55, 56, 59, 63, 69, 70, 72, 78, 90, 95, 96, 99, 102, 103, 104, 107, 112, 113]
+       original_list = [x for x in range(42,113)]
+    
     val_list = list(set(original_list) - set(test_list))
 
     # # Z-axis Images
