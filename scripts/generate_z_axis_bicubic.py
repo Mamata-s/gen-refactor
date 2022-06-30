@@ -16,11 +16,19 @@ if __name__ == '__main__':
         start = 20
         end= 260
         num_img = end-start
+        test_list = [256, 129, 130, 133, 135, 136, 141, 147, 20, 150, 151, 152, 153, 154, 157, 29, 32, 33, 162, 164, 37, 165, 167, 168, 41, 42,
+        175, 176, 181, 53, 182, 55, 186, 61, 191, 192, 66, 70, 71, 200, 76, 205, 78, 207, 80, 212, 214, 88, 90, 219, 95, 224, 96, 223, 227, 228, 101, 102, 103,
+        231, 108, 109, 238, 112, 240, 115, 116, 247, 248, 122, 251, 124, 253]
+        original_list = [x for x in range(20,260)]
     else:
        dataset_name = 'bicubic_dataset50' 
        start = 42
        end = 112
        num_img = end-start
+       test_list =[46, 48, 55, 56, 59, 63, 69, 70, 72, 78, 90, 95, 96, 99, 102, 103, 104, 107, 112, 113]
+       original_list = [x for x in range(42,113)]
+
+    val_list = list(set(original_list) - set(test_list))
 
     # # Z-axis Images
     # ### F1 160
@@ -31,6 +39,7 @@ if __name__ == '__main__':
     main_path= '../{}/z_axis/'.format(dataset_name)
     label_train_dir = '../{}/z_axis/label/train/'.format(dataset_name)
     label_val_dir ='../{}/z_axis/label/val/'.format(dataset_name)
+    label_test_dir ='../{}/z_axis/label/test/'.format(dataset_name)
     hr_path = 'hr_f1_160'
 
 
@@ -38,13 +47,19 @@ if __name__ == '__main__':
        os.makedirs(label_train_dir)
     if not os.path.exists(label_val_dir):
        os.makedirs(label_val_dir)
+    if not os.path.exists(label_test_dir):
+        os.makedirs(label_test_dir)
+
     for fac in factor:
         train_path = main_path+ "factor_{}/train/".format(fac)
         val_path = main_path + "factor_{}/val/".format(fac)
+        test_path = main_path + "factor_{}/test/".format(fac)
         if not os.path.exists(train_path):
             os.makedirs(train_path)
         if not os.path.exists(val_path):
             os.makedirs(val_path)
+        if not os.path.exists(test_path):
+            os.makedirs(test_path)
         
 
 
@@ -113,26 +128,37 @@ if __name__ == '__main__':
 
     for fac in factor:
         x,y,z = data_hr.shape
-        k=start
-        for i in range(num_img):
-            image_arr_cv = ut.normalize_image(data_hr[:,:,k])*255.
+        for index in val_list:
+            image_arr_cv = ut.normalize_image(data_hr[:,:,index])*255.
             img = ut.downsample_bicubic(image_arr_cv,factor=fac)
-            name = 'lr_f4_149_{}_z_{}'.format(fac,k)
-            k+=1
+            name = 'lr_f4_149_{}_z_{}'.format(fac,index)
             path = main_path+"factor_{}/val/".format(fac)
             ut.save_image_cv(img,name,path)
 
     
     # saving lr images
     x,y,z = data_hr.shape
-    k=start
-    for i in range(num_img):
-        name= hr_path+ '_z_'+str(k)
-        img = ut.normalize_image(data_hr[:,:,k])
-        k+=1
+    for index in val_list:
+        name= hr_path+ '_z_'+str(index)
+        img = ut.normalize_image(data_hr[:,:,index])
         ut.save_img_using_pil_lib(img,name,label_val_dir)
 
+    for fac in factor:
+        x,y,z = data_hr.shape
+        for index in test_list:
+            image_arr_cv = ut.normalize_image(data_hr[:,:,index])*255.
+            img = ut.downsample_bicubic(image_arr_cv,factor=fac)
+            name = 'lr_f4_149_{}_z_{}'.format(fac,index)
+            path = main_path+"factor_{}/test/".format(fac)
+            ut.save_image_cv(img,name,path)
 
+    
+    # saving lr images
+    x,y,z = data_hr.shape
+    for index in test_list:
+        name= hr_path+ '_z_'+str(index)
+        img = ut.normalize_image(data_hr[:,:,index])
+        ut.save_img_using_pil_lib(img,name,label_test_dir)
 
 # ***********************************************************************************************************************
 # ## F5 153
