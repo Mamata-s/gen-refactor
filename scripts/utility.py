@@ -196,17 +196,40 @@ def apply_filter(image_arr,filter_apply):
     return img_recon
     
     
+# def downsample_gaussian(image_arr,factor=2):
+#     if factor==2:
+#         radius = 25
+#     elif factor==4:
+#         radius=15
+#     elif factor==6:
+#         radius=11
+#     elif factor==8:
+#         radius =9
+#     else:
+#         print(f'downsample factor{factor} not implemented.Pass radius arg value')
+#     low_filter = get_gaussian_filter(image_arr,radius=radius)
+#     image_downsampled = apply_filter(image_arr,low_filter)
+#     return image_downsampled
+
 def downsample_gaussian(image_arr,factor=2):
     if factor==2:
-        radius = 25
+        radius = 115
     elif factor==4:
-        radius=15
+        radius= 60
     elif factor==6:
-        radius=11
-    elif factor==8:
-        radius =9
+        radius = 40
+    elif factor == 8:
+        radius = 28
+    elif factor==10:
+        radius = 20
     else:
+        radius = 15
         print(f'downsample factor{factor} not implemented.Pass radius arg value')
+    low_filter = get_gaussian_filter(image_arr,radius=radius)
+    image_downsampled = apply_filter(image_arr,low_filter)
+    return image_downsampled
+
+def downsample_gaussian_wradius(image_arr,radius):
     low_filter = get_gaussian_filter(image_arr,radius=radius)
     image_downsampled = apply_filter(image_arr,low_filter)
     return image_downsampled

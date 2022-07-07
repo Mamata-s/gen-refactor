@@ -12,10 +12,12 @@ import os
 
 
 # Generate train patch data from z-axis 25um images for factor 2 and 4
-# factor=[2,4]
+# factor=[2,4,6]
 # dataset_name = 'resolution_dataset25'
+# patch_size = 96
+# stride = 95
 # for fac in factor:
-#     os.system(f"python create_patch.py --image-dir='../{dataset_name}/z_axis/factor_{fac}/train'  --label-dir='../{dataset_name}/z_axis/label/train' --patch-size=96 --stride=75 --output-image-dir='../{dataset_name}/patch/patch-96/factor_{fac}/train/' --output-label-dir='../{dataset_name}/patch/patch-96/label/train/'")
+#     os.system(f"python create_patch.py --image-dir='../{dataset_name}/z_axis/factor_{fac}/train'  --label-dir='../{dataset_name}/z_axis/label/train' --patch-size={patch_size} --stride={stride} --output-image-dir='../{dataset_name}/patch/patch-{patch_size}/factor_{fac}/train/' --output-label-dir='../{dataset_name}/patch/patch-{patch_size}/label/train/'")
 #     # for patch use val and test set from full z-axis images
 
 
@@ -25,7 +27,7 @@ import os
 
 # Generate 25UM dataset
 
-# os.system("python generate_z_axis_gaussian.py --dataset_size='MRI_25um'")
+os.system("python generate_z_axis_gaussian.py --dataset_size='MRI_25um'")
 # os.system("python generate_full_gaussian.py --dataset_size='MRI_25um'")
 
 # # # Generate 50UM dataset
