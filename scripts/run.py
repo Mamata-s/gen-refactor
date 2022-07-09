@@ -2,7 +2,7 @@ import os
 
 # # Generate 25UM dataset
 
-# os.system("python generate_z_axis.py --dataset_size='MRI_25um'")
+os.system("python gen_z_axis_new.py --dataset_size='MRI_25um'")
 # os.system("python generate_full.py --dataset_size='MRI_25um'")
 
 # # # Generate 50UM dataset
@@ -27,7 +27,7 @@ import os
 
 # Generate 25UM dataset
 
-os.system("python generate_z_axis_gaussian.py --dataset_size='MRI_25um'")
+# os.system("python generate_z_axis_gaussian.py --dataset_size='MRI_25um'")
 # os.system("python generate_full_gaussian.py --dataset_size='MRI_25um'")
 
 # # # Generate 50UM dataset
